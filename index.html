@@ -3,39 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的 OC 世界觀站點</title>
+    <title>OC 設定集 - 目錄導覽版</title>
     <style>
-        /* 基礎樣式保持簡約 */
         body { margin: 0; padding: 0; font-family: sans-serif; background: #fff; line-height: 1.6; }
         .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+        .page { display: none; }
+        .page.active { display: block; animation: fadeIn 0.3s; }
 
-        /* 頁面切換核心邏輯 */
-        .page { display: none; } /* 預設全部隱藏 */
-        .page.active { display: block; animation: fadeIn 0.3s; } /* 只有 active 會顯示 */
-
-        /* 第一張圖：主頁樣式 */
+        /* 頂部區域 */
         .banner { background: #d0d0d0; height: 250px; display: flex; align-items: center; justify-content: center; position: relative; }
         .menu-btn { position: absolute; top: 20px; right: 20px; font-size: 30px; cursor: pointer; z-index: 1001; }
-        .main-title { font-size: 2.5em; border-bottom: 5px solid #000; padding-bottom: 10px; margin-bottom: 30px; font-weight: 900; }
 
-        /* 時間線樣式 */
-        .timeline-item { margin-bottom: 40px; border-left: 2px solid #000; padding-left: 20px; position: relative; }
-        .timeline-item::before { content: ""; position: absolute; left: -7px; top: 5px; width: 12px; height: 12px; background: #000; border-radius: 50%; }
+        /* 側邊目錄 (Sidebar Menu) */
+        .sidebar { height: 100%; width: 0; position: fixed; z-index: 1000; top: 0; right: 0; background: #1a1a1a; transition: 0.3s; padding-top: 60px; overflow-y: auto; }
+        .sidebar .menu-title { color: #fff; padding: 10px 30px; font-size: 0.8em; letter-spacing: 2px; opacity: 0.5; }
+        .sidebar a { padding: 12px 30px; text-decoration: none; font-size: 1.1em; color: #bbb; display: block; cursor: pointer; border-left: 0px solid #fff; transition: 0.2s; }
+        .sidebar a:hover { color: #fff; background: #333; border-left: 5px solid #fff; }
+
+        /* 標題與時間線樣式 */
+        .main-title { font-size: 2.2em; border-bottom: 4px solid #000; padding-bottom: 10px; margin-bottom: 30px; font-weight: bold; }
+        .timeline-item { margin-bottom: 50px; border-left: 2px solid #000; padding-left: 20px; scroll-margin-top: 50px; } /* scroll-margin 確保跳轉後不會貼齊頂部 */
         .story-link { color: #000; text-decoration: underline; cursor: pointer; font-weight: bold; display: block; margin-top: 10px; }
 
-        /* 側邊菜單樣式 */
-        .sidebar { height: 100%; width: 0; position: fixed; z-index: 1000; top: 0; right: 0; background: #1a1a1a; transition: 0.3s; padding-top: 60px; overflow-x: hidden; }
-        .sidebar a { padding: 15px 30px; text-decoration: none; font-size: 1.2em; color: #888; display: block; cursor: pointer; }
-        .sidebar a:hover { color: #fff; }
-
-        /* 第二層：OC 與故事 */
-        .oc-summary { display: flex; gap: 20px; background: #f4f4f4; padding: 20px; margin-bottom: 30px; align-items: center; }
-        .oc-img { width: 150px; height: 150px; background: #bbb; display: flex; align-items: center; justify-content: center; font-size: 0.8em; }
-        .oc-name-btn { font-size: 1.5em; font-weight: bold; text-decoration: underline; cursor: pointer; }
-
-        /* 第三層：詳細資料 */
-        .profile-box { border: 2px solid #000; padding: 30px; background: #fff; }
-        .back-link { cursor: pointer; color: #666; margin-bottom: 20px; display: inline-block; }
+        /* OC 預覽與詳細 */
+        .oc-summary { display: flex; gap: 20px; background: #f4f4f4; padding: 20px; margin-bottom: 30px; }
+        .oc-img { width: 120px; height: 120px; background: #bbb; display: flex; align-items: center; justify-content: center; }
+        .back-link { cursor: pointer; color: #999; margin-bottom: 20px; display: inline-block; }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
@@ -43,91 +36,11 @@
 <body>
 
     <div id="sideNav" class="sidebar">
-        <a onclick="goToPage('page-home')">返回世界主頁</a>
-        <a onclick="alert('你可以在這裡增加更多連結')">其他設定</a>
-    </div>
-
-    <div class="menu-btn" onclick="toggleNav()">☰</div>
-
-    <section id="page-home" class="page active">
-        <div class="banner">
-            <span style="font-size: 1.5em; color: #666;">(世界主視覺圖)</span>
-        </div>
-        <div class="container">
-            <h1 class="main-title">世界觀名稱</h1>
-            <p>這裡填寫世界的介紹...</p>
-            
-            <h2 style="margin-top: 50px;">時間線歷史</h2>
-            <div class="timeline-item">
-                <strong>[時間點一]</strong>
-                <p>簡單介紹這段歷史發生的事。</p>
-                <a class="story-link" onclick="goToPage('page-story-a')">↳ 點擊進入故事：[故事 A 名稱]</a>
-            </div>
-        </div>
-    </section>
-
-    <section id="page-story-a" class="page">
-        <div class="container">
-            <a class="back-link" onclick="goToPage('page-home')">← 返回時間線</a>
-            
-            <div class="oc-summary">
-                <div class="oc-img">OC 照片位置</div>
-                <div>
-                    <div class="oc-name-btn" onclick="goToPage('page-oc-detail')">OC 名字</div>
-                    <p>簡易介紹：這裡寫關於角色的簡短標籤。</p>
-                </div>
-            </div>
-
-            <h1 class="main-title">故事線：[故事 A 名稱]</h1>
-            <p>這裡寫詳細的故事內容。對應你草圖中「時間線下方的詳細故事」。</p>
-        </div>
-    </section>
-
-    <section id="page-oc-detail" class="page">
-        <div class="container">
-            <a class="back-link" onclick="goToPage('page-story-a')">← 返回故事線</a>
-            <div class="profile-box">
-                <h1 class="main-title">詳細角色檔案</h1>
-                <h3>● 核心數據</h3>
-                <p>體力：A / 智力：B / 幸運：E</p>
-                <h3>● 詳細設定</h3>
-                <p>這裡可以寫非常長的角色背景、喜好與特殊設定。</p>
-            </div>
-        </div>
-    </section>
-
-    <script>
-        // 切換側邊菜單
-        function toggleNav() {
-            const nav = document.getElementById("sideNav");
-            if (nav.style.width === "250px") {
-                nav.style.width = "0";
-            } else {
-                nav.style.width = "250px";
-            }
-        }
-
-        // 切換頁面功能
-        function goToPage(pageId) {
-            // 1. 隱藏所有頁面
-            const allPages = document.querySelectorAll('.page');
-            allPages.forEach(p => p.classList.remove('active'));
-
-            // 2. 顯示被點選的頁面
-            const targetPage = document.getElementById(pageId);
-            if (targetPage) {
-                targetPage.classList.add('active');
-            } else {
-                console.error("找不到 ID 為 " + pageId + " 的頁面");
-            }
-
-            // 3. 自動收起選單
-            document.getElementById("sideNav").style.width = "0";
-
-            // 4. 畫面回到最上方
-            window.scrollTo(0, 0);
-        }
-    </script>
-
-</body>
-</html>
+        <a style="font-size: 2em; padding: 10px 30px;" onclick="toggleNav()">×</a>
+        
+        <div class="menu-title">快速跳轉</div>
+        <a onclick="goToPage('page-home')">世界觀介紹</a>
+        
+        <div class="menu-title">時間線節點</div>
+        <a onclick="goToTimeline('time-early')">早期歷史</a>
+        <a onclick="goToTimeline('time-middle')">中期轉
