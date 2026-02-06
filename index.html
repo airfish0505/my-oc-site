@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OC Profile | 角色檔案</title>
+    <style>
+        body { background: #1a1a1a; color: #e0e0e0; font-family: sans-serif; display: flex; justify-content: center; padding: 50px 20px; }
+        .card { background: #2d2d2d; max-width: 600px; width: 100%; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .banner { height: 150px; background: linear-gradient(45deg, #6a5acd, #00fbff); }
+        .content { padding: 30px; position: relative; }
+        .avatar { width: 120px; height: 120px; border-radius: 50%; border: 5px solid #2d2d2d; position: absolute; top: -60px; left: 30px; background: #555; object-fit: cover; }
+        .info { margin-top: 60px; }
+        h1 { margin: 0; color: #fff; }
+        .tag { display: inline-block; background: #444; padding: 5px 12px; border-radius: 15px; font-size: 0.8em; margin-right: 5px; color: #00fbff; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="banner"></div>
+        <div class="content">
+            <img src="avatar.jpg" alt="OC Avatar" class="avatar"> <div class="info">
+                <h1>角色名字 <small style="font-size: 0.5em; color: #888;">Name</small></h1>
+                <div style="margin: 10px 0;">
+                    <span class="tag">#種族</span><span class="tag">#屬性</span><span class="tag">#陣營</span>
+                </div>
+                <hr style="border: 0.5px solid #444; margin: 20px 0;">
+                <p>在這裡輸入你的 OC 簡介...</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
