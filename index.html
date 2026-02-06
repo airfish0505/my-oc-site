@@ -3,29 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OC 設定集 - 你的作品名</title>
+    <title>OC 分支敘事站</title>
     <style>
-        body { margin: 0; padding: 0; font-family: sans-serif; background: #fff; color: #333; overflow-x: hidden; }
+        body { margin: 0; padding: 0; font-family: sans-serif; background: #fff; color: #333; }
         
-        /* 灰底大圖區 */
-        .header-banner { background: #d0d0d0; height: 300px; display: flex; justify-content: center; align-items: center; position: relative; }
-        .menu-btn { position: absolute; top: 20px; right: 20px; font-size: 35px; cursor: pointer; z-index: 100; }
+        /* 基礎佈局 */
+        .container { max-width: 800px; margin: 50px auto; padding: 0 20px; }
+        .header-banner { background: #d0d0d0; height: 250px; display: flex; justify-content: center; align-items: center; position: relative; }
+        .menu-btn { position: absolute; top: 20px; right: 20px; font-size: 30px; cursor: pointer; }
 
         /* 側邊菜單 */
-        .sidebar { height: 100%; width: 0; position: fixed; z-index: 99; top: 0; right: 0; background: #1a1a1a; transition: 0.4s; padding-top: 60px; }
-        .sidebar a { padding: 15px 25px; text-decoration: none; font-size: 1.2em; color: #888; display: block; cursor: pointer; }
+        .sidebar { height: 100%; width: 0; position: fixed; z-index: 99; top: 0; right: 0; background: #1a1a1a; transition: 0.4s; padding-top: 60px; overflow-x: hidden; }
+        .sidebar a { padding: 15px 25px; text-decoration: none; font-size: 1.1em; color: #888; display: block; cursor: pointer; }
         .sidebar a:hover { color: #fff; }
-        .close-btn { position: absolute; top: 10px; right: 25px; font-size: 40px !important; }
 
-        /* 內容區塊控制 */
-        .container { max-width: 800px; margin: 50px auto; padding: 0 20px; }
-        .page-content { display: none; } /* 初始隱藏所有頁面 */
-        .page-content.active { display: block; animation: fadeIn 0.5s; } /* 只顯示當前頁面 */
+        /* 頁面切換 */
+        .page-content { display: none; }
+        .page-content.active { display: block; animation: fadeIn 0.5s; }
 
-        /* 你的視覺風格：大標、中標、內文 */
+        /* --- 時間線風格 (主幹) --- */
+        .timeline { position: relative; padding: 20px 0; }
+        .timeline::before { content: ''; position: absolute; left: 20px; top: 0; width: 2px; height: 100%; background: #000; }
+        .timeline-item { position: relative; margin-bottom: 40px; padding-left: 50px; }
+        .timeline-dot { position: absolute; left: 15px; top: 5px; width: 12px; height: 12px; background: #000; border-radius: 50%; }
+        .timeline-date { font-weight: bold; font-size: 1.2em; color: #000; }
+        
+        /* --- 分支連結風格 --- */
+        .branch-link { 
+            display: inline-block; 
+            margin-top: 10px; 
+            color: #6a5acd; 
+            text-decoration: underline; 
+            cursor: pointer; 
+            font-weight: bold;
+        }
+        .branch-link::before { content: "↳ "; }
+
+        /* 標題與文字風格 */
         .main-title { font-size: 2.2em; border-bottom: 4px solid #000; padding-bottom: 10px; margin-bottom: 30px; }
-        .sub-title { font-size: 1.5em; margin-top: 30px; margin-bottom: 10px; color: #444; }
-        .body-text { line-height: 1.8; color: #555; margin-bottom: 15px; }
+        .sub-title { font-size: 1.5em; margin-top: 30px; color: #444; }
+        .body-text { line-height: 1.8; color: #555; }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
@@ -33,62 +50,15 @@
 <body>
 
     <header class="header-banner">
-        <div id="banner-text" style="font-size: 1.5em; color: #666;">(圖片展示區)</div>
+        <div style="font-size: 1.2em; color: #666;">(主視覺圖)</div>
         <div class="menu-btn" onclick="toggleNav()">☰</div>
     </header>
 
-    <div id="mySidebar" class="sidebar">
-        <a class="close-btn" onclick="toggleNav()">×</a>
+    <nav id="mySidebar" class="sidebar">
         <a onclick="showPage('world')">世界觀</a>
-        <a onclick="showPage('timeline')">時間線</a>
-        <a onclick="showPage('oc')">原創角色 (OC)</a>
-        <a onclick="showPage('story')">故事線</a>
-    </div>
+        <a onclick="showPage('timeline')">時間與分支</a>
+        <a onclick="showPage('about')">關於本站</a>
+    </nav>
 
     <main class="container">
-        <section id="world" class="page-content active">
-            <h1 class="main-title">世界觀：起源之城</h1>
-            <h3 class="sub-title">地理環境</h3>
-            <p class="body-text">這裡寫關於世界的描述。因為頁面獨立了，你可以寫得更詳細而不怕單調。</p>
-        </section>
-
-        <section id="timeline" class="page-content">
-            <h1 class="main-title">歷史時間線</h1>
-            <h3 class="sub-title">1000 A.E.</h3>
-            <p class="body-text">歷史大事件 A 發生。</p>
-            <h3 class="sub-title">1025 A.E.</h3>
-            <p class="body-text">歷史大事件 B 發生。</p>
-        </section>
-
-        <section id="oc" class="page-content">
-            <h1 class="main-title">角色檔案：[名字]</h1>
-            <h3 class="sub-title">基本資訊</h3>
-            <p class="body-text">年齡：?? / 種族：??</p>
-        </section>
-
-        <section id="story" class="page-content">
-            <h1 class="main-title">傳奇故事</h1>
-            <h3 class="sub-title">第一章：序幕</h3>
-            <p class="body-text">結合角色與世界的故事細節。</p>
-        </section>
-    </main>
-
-    <script>
-        function toggleNav() {
-            const side = document.getElementById("mySidebar");
-            side.style.width = side.style.width === "250px" ? "0" : "250px";
-        }
-
-        function showPage(pageId) {
-            // 隱藏所有頁面
-            document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
-            // 顯示點選的頁面
-            document.getElementById(pageId).classList.add('active');
-            // 關閉菜單
-            toggleNav();
-            // 自動回到頂端
-            window.scrollTo(0, 0);
-        }
-    </script>
-</body>
-</html>
+        <section id
