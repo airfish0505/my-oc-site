@@ -3,31 +3,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OC Profile | 角色檔案</title>
+    <title>OC 展示頁面</title>
     <style>
-        body { background: #1a1a1a; color: #e0e0e0; font-family: sans-serif; display: flex; justify-content: center; padding: 50px 20px; }
-        .card { background: #2d2d2d; max-width: 600px; width: 100%; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .banner { height: 150px; background: linear-gradient(45deg, #6a5acd, #00fbff); }
-        .content { padding: 30px; position: relative; }
-        .avatar { width: 120px; height: 120px; border-radius: 50%; border: 5px solid #2d2d2d; position: absolute; top: -60px; left: 30px; background: #555; object-fit: cover; }
-        .info { margin-top: 60px; }
-        h1 { margin: 0; color: #fff; }
-        .tag { display: inline-block; background: #444; padding: 5px 12px; border-radius: 15px; font-size: 0.8em; margin-right: 5px; color: #00fbff; }
+        /* --- 基礎設定 (Base Styles) --- */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+            background-color: #ffffff; /* 整體白底 */
+            color: #333;
+            overflow-x: hidden; /* 防止菜單滑出時產生橫向卷軸 */
+        }
+
+        /* --- 頂部灰底圖片區 (Header Image Area) --- */
+        .header-banner {
+            background-color: #d0d0d0; /* 灰底 */
+            height: 300px; /* 你可以調整這個高度 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .placeholder-text {
+            font-size: 1.5em;
+            color: #666;
+            border: 2px dashed #999;
+            padding: 20px;
+            background: rgba(255,255,255,0.5);
+        }
+
+        /* 如果要放真的圖片，請取消下面這段註解，並把上面的 placeholder-text 刪掉
+        .header-image-real {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            object-position: center;
+        } 
+        */
+
+
+        /* --- 右上角菜單按鈕 (Menu Toggle Button) --- */
+        .menu-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 35px;
+            cursor: pointer;
+            z-index: 100; /* 確保按鈕在最上層 */
+            color: #333;
+        }
+
+        /* --- 側邊滑動菜單 (Sliding Sidebar) --- */
+        .sidebar {
+            height: 100%;
+            width: 0; /* 初始寬度為 0，隱藏 */
+            position: fixed;
+            z-index: 99;
+            top: 0;
+            right: 0;
+            background-color: #1a1a1a; /* 深色菜單背景 */
+            overflow-x: hidden;
+            transition: 0.4s; /* 滑動動畫時間 */
+            padding-top: 60px;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+        }
+
+        .sidebar a {
+            padding: 15px 25px;
+            text-decoration: none;
+            font-size: 1.2em;
+            color: #bfbfbf;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            color: #ffffff;
+            background: #333;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            font-size: 40px !important;
+            margin-left: 50px;
+        }
+
+
+        /* --- 主要內容區塊 (Main Content Structure) --- */
+        .container {
+            max-width: 900px;
+            margin: 40px auto; /* 內容置中，上下留白 */
+            padding: 0 20px;
+        }
+
+        .content-section {
+            margin-bottom: 60px; /* 每個大區塊間的距離 */
+        }
+
+        /* 對應草圖：最粗的黑線大標題 */
+        .main-title {
+            font-size: 2.2em;
+            font-weight: 900;
+            color: #000;
+            border-bottom: 4px solid #000; /* 模擬粗線效果 */
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+
+        /* 對應草圖：中標題 */
+        .sub-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #444;
+        }
+
+        /* 對應草圖：內文細線 */
+        .body-text {
+            font-size: 1.1em;
+            line-height: 1.8; /* 讓閱讀更舒適的行高 */
+            margin-bottom: 20px;
+            color: #555;
+        }
+
     </style>
 </head>
 <body>
-    <div class="card">
-        <div class="banner"></div>
-        <div class="content">
-            <img src="avatar.jpg" alt="OC Avatar" class="avatar"> <div class="info">
-                <h1>角色名字 <small style="font-size: 0.5em; color: #888;">Name</small></h1>
-                <div style="margin: 10px 0;">
-                    <span class="tag">#種族</span><span class="tag">#屬性</span><span class="tag">#陣營</span>
-                </div>
-                <hr style="border: 0.5px solid #444; margin: 20px 0;">
-                <p>在這裡輸入你的 OC 簡介...</p>
-            </div>
-        </div>
+
+    <header class="header-banner">
+        <div class="placeholder-text">(圖片放置區：建議放一張橫向大圖)</div>
+        
+        <div class="menu-btn" onclick="toggleNav()">☰</div>
+    </header>
+
+
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="close-btn" onclick="toggleNav()">×</a>
+        <a href="#section1">角色總覽</a>
+        <a href="#section2">背景故事</a>
+        <a href="#section3">能力設定</a>
+        <a href="#section4">圖庫欣賞</a>
     </div>
+
+
+    <main class="container">
+        
+        <div class="content-section" id="section1">
+            <h1 class="main-title">角色總覽</h1>
+            
+            <h3 class="sub-title">基本資料</h3>
+            <p class="body-text">
+                這裡輸入角色的基本資料。例如：姓名、年齡、身高、種族等。這段文字對應你草圖中最細的那幾條線。
+            </p>
+
+            <h3 class="sub-title">外貌特徵</h3>
+            <p class="body-text">
+                描述角色的外觀，髮色、瞳色、特殊的標記或穿著風格。
+            </p>
+        </div>
+
+        <div class="content-section" id="section2">
+            <h1 class="main-title">背景故事</h1>
+            
+            <h3 class="sub-title">起源</h3>
+            <p class="body-text">
+                很久很久以前...在這裡寫下你的 OC 是如何誕生的，或是他們過去的重要經歷。
+            </p>
+            <p class="body-text">
+                第二段故事內容。可以分段寫，讓閱讀更輕鬆。
+            </p>
+        </div>
+
+        <div class="content-section" id="section3">
+            <h1 class="main-title">能力與技能</h1>
+            <p class="body-text">
+                如果這個區塊沒有中標題，直接寫內文也是可以的。這裡描述他的戰鬥風格或特殊能力。
+            </p>
+        </div>
+
+    </main>
+
+
+    <script>
+        // --- 控制菜單開關的 JavaScript ---
+        var isOpen = false;
+        function toggleNav() {
+            if (!isOpen) {
+                // 打開菜單：設定寬度為 250px (手機版可設為 100%)
+                document.getElementById("mySidebar").style.width = "280px";
+            } else {
+                // 關閉菜單：寬度歸零
+                document.getElementById("mySidebar").style.width = "0";
+            }
+            isOpen = !isOpen; // 切換狀態
+        }
+    </script>
+
 </body>
 </html>
