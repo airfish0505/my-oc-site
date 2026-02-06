@@ -3,44 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OC 設定集 - 目錄導覽版</title>
+    <title>我的 OC 世界</title>
     <style>
-        body { margin: 0; padding: 0; font-family: sans-serif; background: #fff; line-height: 1.6; }
+        body { margin: 0; padding: 0; font-family: sans-serif; background: #fff; }
         .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+        .banner { background: #d0d0d0; height: 200px; display: flex; align-items: center; justify-content: center; position: relative; }
+        
+        /* 頁面切換控制 */
         .page { display: none; }
-        .page.active { display: block; animation: fadeIn 0.3s; }
+        .page.active { display: block; }
 
-        /* 頂部區域 */
-        .banner { background: #d0d0d0; height: 250px; display: flex; align-items: center; justify-content: center; position: relative; }
+        /* 側邊菜單 */
+        .sidebar { height: 100%; width: 0; position: fixed; z-index: 1000; top: 0; right: 0; background: #111; transition: 0.3s; padding-top: 60px; overflow-x: hidden; }
+        .sidebar a { padding: 15px 25px; text-decoration: none; font-size: 1.1em; color: #888; display: block; cursor: pointer; }
+        .sidebar a:hover { color: #fff; }
         .menu-btn { position: absolute; top: 20px; right: 20px; font-size: 30px; cursor: pointer; z-index: 1001; }
 
-        /* 側邊目錄 (Sidebar Menu) */
-        .sidebar { height: 100%; width: 0; position: fixed; z-index: 1000; top: 0; right: 0; background: #1a1a1a; transition: 0.3s; padding-top: 60px; overflow-y: auto; }
-        .sidebar .menu-title { color: #fff; padding: 10px 30px; font-size: 0.8em; letter-spacing: 2px; opacity: 0.5; }
-        .sidebar a { padding: 12px 30px; text-decoration: none; font-size: 1.1em; color: #bbb; display: block; cursor: pointer; border-left: 0px solid #fff; transition: 0.2s; }
-        .sidebar a:hover { color: #fff; background: #333; border-left: 5px solid #fff; }
-
-        /* 標題與時間線樣式 */
-        .main-title { font-size: 2.2em; border-bottom: 4px solid #000; padding-bottom: 10px; margin-bottom: 30px; font-weight: bold; }
-        .timeline-item { margin-bottom: 50px; border-left: 2px solid #000; padding-left: 20px; scroll-margin-top: 50px; } /* scroll-margin 確保跳轉後不會貼齊頂部 */
-        .story-link { color: #000; text-decoration: underline; cursor: pointer; font-weight: bold; display: block; margin-top: 10px; }
-
-        /* OC 預覽與詳細 */
-        .oc-summary { display: flex; gap: 20px; background: #f4f4f4; padding: 20px; margin-bottom: 30px; }
-        .oc-img { width: 120px; height: 120px; background: #bbb; display: flex; align-items: center; justify-content: center; }
-        .back-link { cursor: pointer; color: #999; margin-bottom: 20px; display: inline-block; }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        /* 風格設定 */
+        .main-title { font-size: 2em; border-bottom: 4px solid #000; padding-bottom: 10px; margin-bottom: 20px; }
+        .timeline-item { border-left: 2px solid #000; padding-left: 15px; margin-bottom: 30px; scroll-margin-top: 50px; }
+        .link { color: #000; font-weight: bold; cursor: pointer; text-decoration: underline; }
     </style>
 </head>
 <body>
 
+    <div class="menu-btn" onclick="toggleNav()">☰</div>
+
     <div id="sideNav" class="sidebar">
-        <a style="font-size: 2em; padding: 10px 30px;" onclick="toggleNav()">×</a>
-        
-        <div class="menu-title">快速跳轉</div>
-        <a onclick="goToPage('page-home')">世界觀介紹</a>
-        
-        <div class="menu-title">時間線節點</div>
-        <a onclick="goToTimeline('time-early')">早期歷史</a>
-        <a onclick="goToTimeline('time-middle')">中期轉
+        <a onclick="toggleNav()">× 關閉</a>
+        <a onclick="goToPage('home')">首頁 / 世界觀</a>
+        <a onclick="goToTimeline('time-1')">快捷：早期歷史</a>
+        <a onclick="goToTimeline('time-2')">快捷：現在</a>
+    </div>
+
+    <section id="home" class="page active">
+        <div class="banner">主視覺圖片</div>
+        <div class="container">
+            <h1 class="main-title">世界觀設定</h1>
+            <p>這是你的主頁。這裡介紹世界觀。</p>
+            
+            <h2 style="margin-top:40px;">時間線</h2>
+            <div id="time-1" class="timeline-item">
+                <strong>早期歷史</strong>
+                <p>這裡有一段故事... <span class="link" onclick="goToPage('story-page')">點此看故事與 OC</span></p>
+            </div>
+            <div id="time-2" class="timeline-item">
+                <strong>現在</strong>
+                <p>目前世界的狀態。</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="story-page" class="page">
+        <div class="container">
+            <p class="link" onclick="goToPage('home')">← 返回</p>
+            <h1 class="main-title">故事：某個事件</h1>
+            <div style="background:#f4f4f4; padding:20px; margin-bottom:20px;">
+                <strong>角色簡介</strong><br>
+                在這裡寫 OC 的基本資料。
+            </div>
+            <p>這裡寫詳細的故事內容...</p>
+        </div>
+    </section>
+
+    <script>
+        function toggleNav() {
+            const nav = document.getElementById("sideNav");
+            nav.style.width = nav.style.width === "250px" ? "0" : "250px";
+        }
+
+        function goToPage(id) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            document.getElementById("sideNav").style.width = "0";
+            window.scrollTo(0,0);
+        }
+
+        function goToTimeline(id) {
+            goToPage('home');
+            setTimeout(() => {
+                document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        }
+    </script>
+</body>
+</html>
