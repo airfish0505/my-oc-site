@@ -34,4 +34,112 @@
         .oc-box { display: flex; gap: 20px; background: #f4f4f4; padding: 20px; margin-bottom: 30px; border: 1px solid #ddd; align-items: center; }
         .oc-img { width: 100px; height: 100px; background: #bbb; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 
-        @keyframes fadeIn
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <div class="menu-btn" onclick="toggleMenu()">☰</div>
+
+    <div id="sideNav" class="sidebar">
+        <a onclick="toggleMenu()" style="font-size: 2em; color: red;">× 關閉目錄</a>
+        <a onclick="showPage('home')">1. 世界觀首頁</a>
+        <a onclick="jumpToTime('time-1')">2. 快捷：早期歷史</a>
+        <a onclick="showPage('oc-detail')">3. 快捷：角色詳解</a>
+    </div>
+
+    <section id="home" class="page active">
+        <div class="banner">世界主視覺圖片</div>
+        <div class="container">
+            <h1 class="main-title">世界觀設定</h1>
+            <p>這裡填寫你的世界觀介紹文字。</p>
+
+            <h2 style="margin-top: 50px;">時間軸</h2>
+            
+            <div id="time-1" class="timeline-item">
+                <strong>早期歷史節點</strong>
+                <p>簡單介紹這段歷史背景...</p>
+                <div class="btn-link" onclick="showPage('story-page')">↳ 點此查看「故事線」與「OC 簡介」</div>
+            </div>
+            
+            <div id="time-2" class="timeline-item">
+                <strong>現代發展</strong>
+                <p>目前世界所處的狀態...</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="story-page" class="page">
+        <div class="container">
+            <div class="back-btn" onclick="showPage('home')">← 返回主頁時間線</div>
+            
+            <div class="oc-box">
+                <div class="oc-img">OC 照片</div>
+                <div>
+                    <div class="btn-link" style="font-size: 1.4em;" onclick="showPage('oc-detail')">角色名字</div>
+                    <p>簡易標籤：性別 / 年齡 / 職業</p>
+                </div>
+            </div>
+
+            <h1 class="main-title">故事標題：某個重要事件</h1>
+            <p>這裡寫詳細的故事內容，可以分很多段。對應你第二張草圖的設計。</p>
+        </div>
+    </section>
+
+    <section id="oc-detail" class="page">
+        <div class="container">
+            <div class="back-btn" onclick="showPage('story-page')">← 返回故事</div>
+            
+            <h1 class="main-title">角色真正的詳細介紹</h1>
+            <div style="border: 3px solid #000; padding: 20px;">
+                <h3>基本屬性</h3>
+                <p>全名：XXX<br>喜好：XXX</p>
+                <h3>靈魂核心</h3>
+                <p>這裡填寫最深層的角色設定、過去的秘密與能力詳解。</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // 1. 控制菜單開關
+        function toggleMenu() {
+            const nav = document.getElementById('sideNav');
+            if (nav.style.width === "280px") {
+                nav.style.width = "0";
+            } else {
+                nav.style.width = "280px";
+            }
+        }
+
+        // 2. 切換分頁 (使用紅按鈕測試成功的邏輯)
+        function showPage(pageId) {
+            console.log("切換到頁面：" + pageId);
+            
+            // 隱藏所有頁面
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(p => p.classList.remove('active'));
+            
+            // 顯示點選的頁面
+            const target = document.getElementById(pageId);
+            if (target) {
+                target.classList.add('active');
+            } else {
+                alert("找不到 ID 為 " + pageId + " 的頁面");
+            }
+
+            // 關閉菜單並回頂部
+            document.getElementById('sideNav').style.width = "0";
+            window.scrollTo(0, 0);
+        }
+
+        // 3. 跳轉時間軸
+        function jumpToTime(timeId) {
+            showPage('home');
+            setTimeout(() => {
+                const el = document.getElementById(timeId);
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }, 200);
+        }
+    </script>
+</body>
+</html>
