@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OC 設定集 - 穩定運作版</title>
+    <style>
+        /* 選項 */
+        .navar ul{list-style-type: none; background-color: rgb(255, 255, 255);margin: auto;padding: 0;position: fixed;top: 0;width: 100%;z-index: 1000; text-align: center;}
+        .navar a{color: black;text-decoration: none;padding: 15px; display: block;text-align: center;}
+        .navar a:hover{background-color: rgb(240, 240, 240);}
+        .navar li{display: inline-block;}
+
+        /* 基礎風格 */
+        .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+
+        /* 頂部 Banner */
+        .banner { background: #ffffff; height: 30px; display: flex; align-items: center; justify-content: center; position: relative; }
+
+        /* 視覺設計：黑線大標 */
+        .main-title { font-size: 2.2em; border-bottom: 5px solid #000; padding-bottom: 10px; margin-bottom: 30px; font-weight: 900; }
+        .oc-name { text-align: center;margin: 10px;font-size: 20px;padding: 0;}
+
+        /* 連結與按鈕樣式 */
+        .btn-link { color: #000; font-weight: bold; cursor: pointer; display: inline-block; margin-top: 10px; text-decoration: underline; }
+        
+        /* 返回按鈕 */
+        .back-btn { color: #888; cursor: pointer; margin-bottom: 20px; font-size: 0.9em; }
+
+        /* OC 預覽框 */
+        .oc-box { display: inline-block;margin: 15px;}
+        .oc-img { width: 130px; height: 180px; background: #bbb; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+ 
+         /* 頁面隱藏與顯示 (核心) */
+        .page { display: none; }
+        .active { display: block !important; animation: fadeIn 0.3s; }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body link="#000" vlink="#555" alink="#999">
+    <section id="home" class="page active">
+        <nav class="navar">
+            <ul>
+                <li><a href="index.html">首頁</a></li>
+                <li><a href="characters.html">角色</a></li>
+                <li><a href="stories.html">故事</a></li>
+                <li><a href="gallery.html">畫廊</a></li>
+            </ul>
+        </nav>
+        <div class="banner"></div>
+        <div class="container">
+            <div class="back-btn"><a href="index.html">← 返回主頁時間線</a></div>           
+            <div class="oc-box">
+                <a href="oc-detail.html">
+                  <button style="background-color: #ffffff;border: none;">
+                    <div class="oc-name">
+                       <div class="oc-img"></div>
+                       <div class="btn-link" >角色名</div>
+                       <p style="font-size: 15px;">一些小廢話</p>
+                    </div>
+                  </button>
+                </a>
+            </div>
+            <div class="oc-box">
+                <a href="oc-detail.html">
+                  <button style="background-color: #ffffff;border: none;">
+                    <div class="oc-name">
+                       <div class="oc-img"></div>
+                       <div class="btn-link" >角色名</div>
+                       <p style="font-size: 15px;">一些小廢話</p>
+                    </div>
+                  </button>
+                </a>
+            </div>
+            <div class="oc-box">
+                <a href="oc-detail.html">
+                  <button style="background-color: #ffffff;border: none;">
+                    <div class="oc-name">
+                       <div class="oc-img"></div>
+                       <div class="btn-link" >角色名</div>
+                       <p style="font-size: 15px;">一些小廢話</p>
+                    </div>
+                  </button>
+                </a>
+            </div>
+            <div class="oc-box">
+                <a href="oc-detail.html">
+                  <button style="background-color: #ffffff;border: none;">
+                    <div class="oc-name">
+                       <div class="oc-img"></div>
+                       <div class="btn-link" >角色名</div>
+                       <p style="font-size: 15px;">一些小廢話</p>
+                    </div>
+                  </button>
+                </a>
+            </div>
+            <h1 class="main-title">故事標題：某個重要事件</h1>
+            <p>這裡寫詳細的故事內容，可以分很多段。對應你第二張草圖的設計。</p>
+        </div>
+    </section>
+    
+</body>
+</html>
